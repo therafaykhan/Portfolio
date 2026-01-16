@@ -4,9 +4,7 @@
     {
       "src": "package.json",
       "use": "@vercel/next",
-      "config": {
-        "serverless": true
-      }
+      "config": {}
     }
   ],
   "routes": [
@@ -14,5 +12,8 @@
       "src": "/(.*)",
       "dest": "/"
     }
-  ]
+  ],
+  "github": {
+    "silent": true
+  }
 }

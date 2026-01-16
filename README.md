@@ -109,9 +109,36 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
    - Root Directory: `/`
 5. Deploy!
 
+### GitHub Pages
+
+To deploy to GitHub Pages:
+
+1. Update the `homepage` field in `package.json` to your GitHub Pages URL:
+   ```json
+   "homepage": "https://yourusername.github.io/repo-name"
+   ```
+
+2. Update `next.config.js` to include the correct asset prefix:
+   ```js
+   const nextConfig = {
+     // ... other config
+     basePath: '/repo-name', // Replace with your repo name
+     assetPrefix: '/repo-name/', // Replace with your repo name
+   }
+   ```
+
+3. The GitHub Actions workflow in `.github/workflows/github-pages.yml` will automatically deploy your site when you push to the main branch.
+
+### Netlify
+
+1. Push your code to a Git repository
+2. Go to [Netlify](https://netlify.com) and connect your repository
+3. Set the build command to `npm run build`
+4. Set the publish directory to `out` (after running `npm run export`)
+
 ### Static Export
 
-To export as static HTML files:
+To export as static HTML files for self-hosting:
 
 ```bash
 npm run build
@@ -119,6 +146,15 @@ npm run export
 ```
 
 The exported files will be in the `out/` directory and can be deployed to any static hosting service.
+
+### Environment Variables
+
+For production deployments, you may need to set environment variables:
+
+1. Create a `.env.local` file (not committed to Git) with your production variables
+2. Or set environment variables in your hosting platform's dashboard
+
+See `.env.example` for a list of possible environment variables.
 
 ## Customization
 

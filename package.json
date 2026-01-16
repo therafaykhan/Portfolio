@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export",
+    "clean": "rm -rf .next out dist build"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -23,5 +25,23 @@
     "tailwindcss": "^3.3.5",
     "eslint": "^8.0.0",
     "eslint-config-next": "14.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/therafaykhan/Portfolio.git"
+  },
+  "keywords": [
+    "nextjs",
+    "portfolio",
+    "website",
+    "react",
+    "typescript",
+    "tailwindcss"
+  ],
+  "author": "Rafay Khan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/therafaykhan/Portfolio/issues"
+  },
+  "homepage": "https://github.com/therafaykhan/Portfolio#readme"
 }

@@ -18,7 +18,16 @@ export default function About() {
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/3 mb-10 md:mb-0 flex justify-center">
               <div className="relative">
-                <div className="bg-gray-200 border-2 border-dashed rounded-full w-64 h-64" />
+                <div className="overflow-hidden rounded-full w-64 h-64 border-4 border-white dark:border-gray-800 shadow-xl">
+                  <Image
+                    src={personalInfo.avatar}
+                    alt={`${personalInfo.name}'s Profile Picture`}
+                    width={256}
+                    height={256}
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: 'center 25%' }}
+                  />
+                </div>
                 <div className="absolute -bottom-4 -right-4 bg-amber-500 text-white px-6 py-2 rounded-lg font-bold transform rotate-6 shadow-lg">
                   Full Stack Dev
                 </div>

@@ -45,9 +45,18 @@ export default function Home() {
       <section className="section bg-gray-50 dark:bg-gray-800">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center">
-            <div className="md:w-1/2 mb-10 md:mb-0">
+            <div className="md:w-1/2 mb-10 md:mb-0 flex justify-center">
               <div className="relative rounded-lg overflow-hidden shadow-xl transform transition-all duration-500 hover:scale-105">
-                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-96" />
+                <div className="overflow-hidden rounded-full w-80 h-80 border-4 border-white dark:border-gray-800 shadow-xl">
+                  <Image
+                    src={personalInfo.avatar}
+                    alt={`${personalInfo.name}'s Profile Picture`}
+                    width={320}
+                    height={320}
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: 'center 25%' }}
+                  />
+                </div>
               </div>
             </div>
             <div className="md:w-1/2 md:pl-12">
