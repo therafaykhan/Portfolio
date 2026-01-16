@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  trailingSlash: true,
   images: {
     // Using remotePatterns instead of domains (deprecated)
     remotePatterns: [
@@ -31,10 +30,6 @@ const nextConfig = {
         hostname: 'lh3.googleusercontent.com', // For Google profile images
       },
     ],
-  },
-  env: {
-    // Environment variables that will be available in the browser
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   },
 };
 
