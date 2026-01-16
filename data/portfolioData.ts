@@ -3,13 +3,13 @@
 // Sample portfolio data - you can customize this with your own information
 
 export const personalInfo = {
-  name: "John Doe",
+  name: "Rafay Khan",
   title: "Senior Software & Web Developer",
-  email: "john.doe@example.com",
-  phone: "+1 (555) 123-4567",
-  location: "San Francisco, CA",
+  email: "mrafaykhan15@gmail.com",
+  phone: "+92 310 2074074",
+  location: "Karachi, Pakistan",
   bio: "Passionate software engineer with 5+ years of experience building scalable web applications. Specialized in modern JavaScript frameworks and cloud technologies.",
-  avatar: "/images/avatar.jpg", // Placeholder
+  avatar: "/images/DP.png", // Your profile picture
 };
 
 export const skills = [
@@ -52,7 +52,7 @@ export const projects = [
     title: "E-commerce Platform",
     description: "A full-featured online shopping platform with payment integration and inventory management.",
     technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-    imageUrl: "/images/project1.jpg", // Placeholder
+    imageUrl: "/images/project1.jpg",
     liveUrl: "#",
     githubUrl: "#",
   },
@@ -61,7 +61,7 @@ export const projects = [
     title: "Task Management App",
     description: "A collaborative task management application with real-time updates and team features.",
     technologies: ["Vue.js", "Firebase", "Tailwind CSS"],
-    imageUrl: "/images/project2.jpg", // Placeholder
+    imageUrl: "/images/project2.jpg",
     liveUrl: "#",
     githubUrl: "#",
   },
@@ -70,7 +70,7 @@ export const projects = [
     title: "Analytics Dashboard",
     description: "A data visualization dashboard for business intelligence and reporting.",
     technologies: ["React", "D3.js", "Node.js", "PostgreSQL"],
-    imageUrl: "/images/project3.jpg", // Placeholder
+    imageUrl: "/images/project3.jpg",
     liveUrl: "#",
     githubUrl: "#",
   },
@@ -79,7 +79,7 @@ export const projects = [
     title: "Travel Blog Platform",
     description: "A content-rich travel blog platform with geolocation features and social sharing.",
     technologies: ["Next.js", "Strapi", "Mapbox", "Tailwind CSS"],
-    imageUrl: "/images/project4.jpg", // Placeholder
+    imageUrl: "/images/project4.jpg",
     liveUrl: "#",
     githubUrl: "#",
   },
@@ -92,7 +92,7 @@ export const experiences = [
     company: "Tech Innovations Inc.",
     duration: "Jan 2021 - Present",
     description: "Lead development of customer-facing applications using React and Node.js. Mentored junior developers and implemented CI/CD pipelines.",
-    logo: "/images/company1.png", // Placeholder
+    logo: "/images/company1.png",
   },
   {
     id: 2,
@@ -100,7 +100,7 @@ export const experiences = [
     company: "Digital Solutions LLC",
     duration: "Mar 2019 - Dec 2020",
     description: "Built responsive web applications using Vue.js and integrated with REST APIs. Improved page load times by 40%.",
-    logo: "/images/company2.png", // Placeholder
+    logo: "/images/company2.png",
   },
   {
     id: 3,
@@ -108,6 +108,6 @@ export const experiences = [
     company: "Startup Hub",
     duration: "Jun 2018 - Feb 2019",
     description: "Developed and maintained client websites using HTML, CSS, and JavaScript. Assisted in migrating legacy systems to modern frameworks.",
-    logo: "/images/company3.png", // Placeholder
+    logo: "/images/company3.png",
   },
 ];
