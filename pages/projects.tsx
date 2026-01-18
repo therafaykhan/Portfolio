@@ -88,7 +88,15 @@ export default function Projects() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
               <div key={project.id} className="card group overflow-hidden">
-                <div className="h-48 bg-gray-200 border-2 border-dashed w-full" />
+                <div className="h-48 bg-gray-200 border-2 border-dashed w-full relative overflow-hidden">
+                  <Image
+                    src={project.imageUrl}
+                    alt={project.title}
+                    width={400}
+                    height={200}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {project.title}
