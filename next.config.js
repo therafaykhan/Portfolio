@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
+  experimental: {
+    turbo: {
+      enabled: false, // Disable Turbopack
+    },
+  },
   images: {
     // Using remotePatterns instead of domains (deprecated)
     remotePatterns: [

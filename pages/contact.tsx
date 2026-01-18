@@ -10,13 +10,13 @@ export default function Contact() {
     subject: '',
     message: ''
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const formRef = useRef(null);
 
-  const validateField = (name, value) => {
+  const validateField = (name: string, value: string) => {
     switch (name) {
       case 'name':
         return value.trim() ? '' : 'Name is required';
@@ -32,7 +32,7 @@ export default function Contact() {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -48,13 +48,13 @@ export default function Contact() {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validate all fields
-    const newErrors = {};
+    const newErrors: Record<string, string> = {};
     Object.keys(formData).forEach(key => {
-      const error = validateField(key, formData[key]);
+      const error = validateField(key, formData[key as keyof typeof formData]);
       if (error) newErrors[key] = error;
     });
 
@@ -274,7 +274,7 @@ export default function Contact() {
                   <textarea
                     id="message"
                     name="message"
-                    rows="5"
+                    rows={5}
                     value={formData.message}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
