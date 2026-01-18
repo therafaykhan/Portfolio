@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { personalInfo } from '../data/portfolioData';
+import { personalInfo, projects } from '../data/portfolioData';
 
 export default function Home() {
   return (
@@ -174,85 +174,55 @@ export default function Home() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="card group">
-              <div className="h-48 bg-gray-200 border-2 border-dashed w-full" />
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">Project Name</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  A brief description of the project and technologies used.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-200">React</span>
-                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-200">Node.js</span>
-                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-200">MongoDB</span>
+            {projects.slice(0, 3).map((project) => (
+              <div key={project.id} className="card group overflow-hidden">
+                <div className="h-48 bg-gray-200 border-2 border-dashed w-full relative overflow-hidden">
+                  <Image
+                    src={project.imageUrl}
+                    alt={project.title}
+                    width={400}
+                    height={200}
+                    className="object-cover w-full h-full"
+                  />
                 </div>
-                <div className="flex space-x-4">
-                  <Link href="#">
-                    <a className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
-                      View Details
-                    </a>
-                  </Link>
-                  <Link href="#">
-                    <a className="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 font-medium">
-                      Source Code
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="card group">
-              <div className="h-48 bg-gray-200 border-2 border-dashed w-full" />
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">Project Name</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  A brief description of the project and technologies used.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-200">Vue.js</span>
-                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-200">Firebase</span>
-                </div>
-                <div className="flex space-x-4">
-                  <Link href="#">
-                    <a className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
-                      View Details
-                    </a>
-                  </Link>
-                  <Link href="#">
-                    <a className="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 font-medium">
-                      Source Code
-                    </a>
-                  </Link>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-200"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex space-x-4">
+                    <Link href={project.liveUrl}>
+                      <a className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Live Demo
+                      </a>
+                    </Link>
+                    <Link href={project.githubUrl}>
+                      <a className="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 font-medium flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        Source Code
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="card group">
-              <div className="h-48 bg-gray-200 border-2 border-dashed w-full" />
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">Project Name</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  A brief description of the project and technologies used.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-200">Next.js</span>
-                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-200">Tailwind CSS</span>
-                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded dark:bg-blue-900 dark:text-blue-200">PostgreSQL</span>
-                </div>
-                <div className="flex space-x-4">
-                  <Link href="#">
-                    <a className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
-                      View Details
-                    </a>
-                  </Link>
-                  <Link href="#">
-                    <a className="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 font-medium">
-                      Source Code
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
           <div className="text-center mt-12">
