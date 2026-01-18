@@ -47,7 +47,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               type="button"
               className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none transition-colors"
             >
-              <svg id="theme-toggle-dark-icon" className="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <svg id="theme-toggle-dark-icon" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
               </svg>
               <svg id="theme-toggle-light-icon" className="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -94,7 +94,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   className="w-full py-2 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                 >
                   <span className="mr-2">Toggle Theme</span>
-                  <svg id="theme-toggle-mobile-dark-icon" className="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <svg id="theme-toggle-mobile-dark-icon" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                   </svg>
                   <svg id="theme-toggle-mobile-light-icon" className="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -122,58 +122,89 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <script dangerouslySetInnerHTML={{
         __html: `
           // Change the theme toggle script to work with Tailwind's dark mode
-          const themeToggle = document.getElementById('theme-toggle');
-          const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-          const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+          function initializeTheme() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+            const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
 
-          // Check for saved theme preference or respect OS preference
-          if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            themeToggleLightIcon.classList.remove('hidden');
+            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            const themeToggleMobileLightIcon = document.getElementById('theme-toggle-mobile-light-icon');
+            const themeToggleMobileDarkIcon = document.getElementById('theme-toggle-mobile-dark-icon');
+
+            // Determine initial theme
+            let currentTheme = localStorage.getItem('color-theme');
+            if (!currentTheme) {
+              currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+
+            // Apply initial theme
+            if (currentTheme === 'dark') {
+              document.documentElement.classList.add('dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+            }
+
+            // Show appropriate icons based on current theme
+            function updateIcons() {
+              if (document.documentElement.classList.contains('dark')) {
+                // In dark mode, show light icon (sun) and hide dark icon (moon)
+                if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
+                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
+                if (themeToggleMobileLightIcon) themeToggleMobileLightIcon.classList.remove('hidden');
+                if (themeToggleMobileDarkIcon) themeToggleMobileDarkIcon.classList.add('hidden');
+              } else {
+                // In light mode, show dark icon (moon) and hide light icon (sun)
+                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
+                if (themeToggleLightIcon) themeToggleLightIcon.classList.add('hidden');
+                if (themeToggleMobileDarkIcon) themeToggleMobileDarkIcon.classList.remove('hidden');
+                if (themeToggleMobileLightIcon) themeToggleMobileLightIcon.classList.add('hidden');
+              }
+            }
+
+            // Initialize icons
+            updateIcons();
+
+            // Add click listeners
+            if (themeToggle) {
+              themeToggle.addEventListener('click', function() {
+                // Toggle dark mode class
+                document.documentElement.classList.toggle('dark');
+
+                // Update icons
+                updateIcons();
+
+                // Save preference to localStorage
+                if (document.documentElement.classList.contains('dark')) {
+                  localStorage.setItem('color-theme', 'dark');
+                } else {
+                  localStorage.setItem('color-theme', 'light');
+                }
+              });
+            }
+
+            if (themeToggleMobile) {
+              themeToggleMobile.addEventListener('click', function() {
+                // Toggle dark mode class
+                document.documentElement.classList.toggle('dark');
+
+                // Update icons
+                updateIcons();
+
+                // Save preference to localStorage
+                if (document.documentElement.classList.contains('dark')) {
+                  localStorage.setItem('color-theme', 'dark');
+                } else {
+                  localStorage.setItem('color-theme', 'light');
+                }
+              });
+            }
+          }
+
+          // Initialize theme when DOM is loaded
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeTheme);
           } else {
-            document.documentElement.classList.remove('dark');
-            themeToggleDarkIcon.classList.remove('hidden');
-          }
-
-          if (themeToggle) {
-            themeToggle.addEventListener('click', function() {
-              // Toggle dark mode class
-              document.documentElement.classList.toggle('dark');
-
-              // Toggle icons
-              themeToggleLightIcon.classList.toggle('hidden');
-              themeToggleDarkIcon.classList.toggle('hidden');
-
-              // Save preference to localStorage
-              if (document.documentElement.classList.contains('dark')) {
-                localStorage.setItem('color-theme', 'dark');
-              } else {
-                localStorage.setItem('color-theme', 'light');
-              }
-            });
-          }
-
-          // Mobile theme toggle
-          const themeToggleMobile = document.getElementById('theme-toggle-mobile');
-          const themeToggleMobileLightIcon = document.getElementById('theme-toggle-mobile-light-icon');
-          const themeToggleMobileDarkIcon = document.getElementById('theme-toggle-mobile-dark-icon');
-
-          if (themeToggleMobile) {
-            themeToggleMobile.addEventListener('click', function() {
-              // Toggle dark mode class
-              document.documentElement.classList.toggle('dark');
-
-              // Toggle icons
-              themeToggleMobileLightIcon.classList.toggle('hidden');
-              themeToggleMobileDarkIcon.classList.toggle('hidden');
-
-              // Save preference to localStorage
-              if (document.documentElement.classList.contains('dark')) {
-                localStorage.setItem('color-theme', 'dark');
-              } else {
-                localStorage.setItem('color-theme', 'light');
-              }
-            });
+            initializeTheme();
           }
         `
       }} />
