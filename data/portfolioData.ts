@@ -52,7 +52,7 @@ export const projects = [
     title: "Personal Portfolio Website",
     description: "Modern responsive portfolio website showcasing skills, projects, and professional experience with dark mode support.",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
-    imageUrl: "/images/project1.jpg",
+    imageUrl: "/images/Portfolio.jpg",
     liveUrl: "https://portfolio-website-pi-kohl-91.vercel.app/",
     githubUrl: "https://github.com/therafaykhan/Portfolio",
   },
