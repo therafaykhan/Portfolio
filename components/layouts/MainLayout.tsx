@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import Script from 'next/script';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -119,95 +120,99 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </footer>
 
-      <script dangerouslySetInnerHTML={{
-        __html: `
-          // Change the theme toggle script to work with Tailwind's dark mode
-          function initializeTheme() {
-            const themeToggle = document.getElementById('theme-toggle');
-            const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-            const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+      <Script
+        id="theme-script"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            // Change the theme toggle script to work with Tailwind's dark mode
+            function initializeTheme() {
+              const themeToggle = document.getElementById('theme-toggle');
+              const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+              const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
 
-            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
-            const themeToggleMobileLightIcon = document.getElementById('theme-toggle-mobile-light-icon');
-            const themeToggleMobileDarkIcon = document.getElementById('theme-toggle-mobile-dark-icon');
+              const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+              const themeToggleMobileLightIcon = document.getElementById('theme-toggle-mobile-light-icon');
+              const themeToggleMobileDarkIcon = document.getElementById('theme-toggle-mobile-dark-icon');
 
-            // Determine initial theme
-            let currentTheme = localStorage.getItem('color-theme');
-            if (!currentTheme) {
-              currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            }
+              // Determine initial theme
+              let currentTheme = localStorage.getItem('color-theme');
+              if (!currentTheme) {
+                currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+              }
 
-            // Apply initial theme
-            if (currentTheme === 'dark') {
-              document.documentElement.classList.add('dark');
-            } else {
-              document.documentElement.classList.remove('dark');
-            }
-
-            // Show appropriate icons based on current theme
-            function updateIcons() {
-              if (document.documentElement.classList.contains('dark')) {
-                // In dark mode, show light icon (sun) and hide dark icon (moon)
-                if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
-                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
-                if (themeToggleMobileLightIcon) themeToggleMobileLightIcon.classList.remove('hidden');
-                if (themeToggleMobileDarkIcon) themeToggleMobileDarkIcon.classList.add('hidden');
+              // Apply initial theme
+              if (currentTheme === 'dark') {
+                document.documentElement.classList.add('dark');
               } else {
-                // In light mode, show dark icon (moon) and hide light icon (sun)
-                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
-                if (themeToggleLightIcon) themeToggleLightIcon.classList.add('hidden');
-                if (themeToggleMobileDarkIcon) themeToggleMobileDarkIcon.classList.remove('hidden');
-                if (themeToggleMobileLightIcon) themeToggleMobileLightIcon.classList.add('hidden');
+                document.documentElement.classList.remove('dark');
+              }
+
+              // Show appropriate icons based on current theme
+              function updateIcons() {
+                if (document.documentElement.classList.contains('dark')) {
+                  // In dark mode, show light icon (sun) and hide dark icon (moon)
+                  if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
+                  if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
+                  if (themeToggleMobileLightIcon) themeToggleMobileLightIcon.classList.remove('hidden');
+                  if (themeToggleMobileDarkIcon) themeToggleMobileDarkIcon.classList.add('hidden');
+                } else {
+                  // In light mode, show dark icon (moon) and hide light icon (sun)
+                  if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
+                  if (themeToggleLightIcon) themeToggleLightIcon.classList.add('hidden');
+                  if (themeToggleMobileDarkIcon) themeToggleMobileDarkIcon.classList.remove('hidden');
+                  if (themeToggleMobileLightIcon) themeToggleMobileLightIcon.classList.add('hidden');
+                }
+              }
+
+              // Initialize icons
+              updateIcons();
+
+              // Add click listeners
+              if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                  // Toggle dark mode class
+                  document.documentElement.classList.toggle('dark');
+
+                  // Update icons
+                  updateIcons();
+
+                  // Save preference to localStorage
+                  if (document.documentElement.classList.contains('dark')) {
+                    localStorage.setItem('color-theme', 'dark');
+                  } else {
+                    localStorage.setItem('color-theme', 'light');
+                  }
+                });
+              }
+
+              if (themeToggleMobile) {
+                themeToggleMobile.addEventListener('click', function() {
+                  // Toggle dark mode class
+                  document.documentElement.classList.toggle('dark');
+
+                  // Update icons
+                  updateIcons();
+
+                  // Save preference to localStorage
+                  if (document.documentElement.classList.contains('dark')) {
+                    localStorage.setItem('color-theme', 'dark');
+                  } else {
+                    localStorage.setItem('color-theme', 'light');
+                  }
+                });
               }
             }
 
-            // Initialize icons
-            updateIcons();
-
-            // Add click listeners
-            if (themeToggle) {
-              themeToggle.addEventListener('click', function() {
-                // Toggle dark mode class
-                document.documentElement.classList.toggle('dark');
-
-                // Update icons
-                updateIcons();
-
-                // Save preference to localStorage
-                if (document.documentElement.classList.contains('dark')) {
-                  localStorage.setItem('color-theme', 'dark');
-                } else {
-                  localStorage.setItem('color-theme', 'light');
-                }
-              });
+            // Initialize theme when DOM is loaded
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', initializeTheme);
+            } else {
+              initializeTheme();
             }
-
-            if (themeToggleMobile) {
-              themeToggleMobile.addEventListener('click', function() {
-                // Toggle dark mode class
-                document.documentElement.classList.toggle('dark');
-
-                // Update icons
-                updateIcons();
-
-                // Save preference to localStorage
-                if (document.documentElement.classList.contains('dark')) {
-                  localStorage.setItem('color-theme', 'dark');
-                } else {
-                  localStorage.setItem('color-theme', 'light');
-                }
-              });
-            }
-          }
-
-          // Initialize theme when DOM is loaded
-          if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeTheme);
-          } else {
-            initializeTheme();
-          }
-        `
-      }} />
+          `
+        }}
+      />
     </div>
   );
 }
